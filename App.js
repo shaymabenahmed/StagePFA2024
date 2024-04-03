@@ -6,19 +6,18 @@ import HomeScreen from './Screens/HomeScreen';
 
 export default function App() {
   return (
-    <>
-      <HomeScreen />
-      <BottomNavigation />
-    </>
+    <View style={styles.container }>
+     <BottomNavigation />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'column',
     backgroundColor: '#fff',
-    justifyContent: 'center', // Espacer les éléments verticalement
-  },
+    alignItems: 'center',
+    justifyContent: 'center' 
+  }
 });
 

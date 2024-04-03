@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../Screens/HomeScreen';
 import MessageScreen from '../Screens/MessageScreen';
+import ScrollVideo from './ScrollVideo';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,12 +17,13 @@ const BottomNavigation = () => {
             screenOptions={{
               tabBarActiveTintColor: 'white',
               tabBarInctiveTintColor: 'white',
-              tabBarStyle: { backgroundColor: 'black' }
+              tabBarStyle: { backgroundColor: 'black' },
+              headerShown: false
             }}
         
         ><Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={ScrollVideo}
         options={{
           tabBarLabel: ({ focused, color }) => (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>

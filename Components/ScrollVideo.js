@@ -1,4 +1,4 @@
-import { View, Dimensions, FlatList, StyleSheet, Pressable } from 'react-native';
+import { View, Dimensions, FlatList, StyleSheet, Pressable, Image, Text } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -41,6 +41,7 @@ function ScrollVideo() {
 const Item = ({ item, shouldPlay }) => {
   const video = useRef(null);
   const [status, setStatus] = useState(null);
+  const [showFullDescription, setShowFullDescription] = useState(false); // Etat pour montrer ou cacher la description complète
 
   useEffect(() => {
     if (!video.current) return;
@@ -61,18 +62,43 @@ const Item = ({ item, shouldPlay }) => {
     }
   };
 
+  // Fonction pour basculer entre la description tronquée et la description complète
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
   return (
     <Pressable onPress={handlePress}>
-      <View style={styles.videoContainer}>
-        <Video
-          ref={video}
-          source={{ uri: item }}
-          style={styles.video}
-          isLooping
-          resizeMode={ResizeMode.STRETCH} // Utilisez Stretch pour que la vidéo s'affiche sur tout l'écran
-          useNativeControls={false}
-          onPlaybackStatusUpdate={status => setStatus(status)}
-        />
+      <View style={styles.container}>
+        <View style={styles.videoContainer}>
+          <Video
+            ref={video}
+            source={{ uri: item }}
+            style={styles.video}
+            isLooping
+            resizeMode={ResizeMode.STRETCH}
+            useNativeControls={false}
+            onPlaybackStatusUpdate={status => setStatus(status)}
+          />
+          <View style={styles.userInfoContainer}>
+            <Image
+              source={require('../assets/icons/profilpic.png')}
+              style={styles.profilePic}
+            />
+            <Text style={styles.username}>username</Text>
+          </View>
+          <View style={styles.descriptionContainer}>
+            <Text style={styles.descriptionText}>
+              {showFullDescription ? 'Description de la vidéo Description de la vidéo efeferferfzefezfzf ygyugyuguyguygyunjjjjjjjjjj' : 'Description tronquée... '}
+             
+              {showFullDescription ? (
+                <Text style={styles.seeMoreText} onPress={toggleDescription}>Voir moins</Text>
+              ) : (
+                <Text style={styles.seeMoreText} onPress={toggleDescription}>Voir plus</Text>
+              )}
+            </Text>
+          </View>
+        </View>
       </View>
     </Pressable>
   );
@@ -84,17 +110,46 @@ const styles = StyleSheet.create({
   },
   videoContainer: {
     width: Dimensions.get('screen').width,
-    height:Dimensions.get('screen').height-200,
-
-   
+    height: Dimensions.get('screen').height,
+    position: 'relative',
   },
   video: {
     flex: 1,
     width: '100%',
-    height: '100%',
-    padding:0,
-    margin:0,
-    backgroundColor:'blue',
+    height: '100%'
+  },
+  userInfoContainer: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    alignItems: 'center',
+  },
+  profilePic: {
+    width: 37,
+    height: 37,
+    borderRadius: 25,
+    marginTop: 25
+  },
+  username: {
+    color: 'white',
+    fontSize: 11,
+    fontWeight: 'bold',
+    fontFamily: 'Lemonada'
+  },
+  descriptionContainer: {
+    position: 'absolute',
+    bottom:150,
+    left: 20,
+  },
+  descriptionText: {
+    color: 'white',
+    fontSize: 10,
+    maxWidth: 200, // Limite la largeur de la description pour éviter qu'elle dépasse l'écran
+    maxHeight: 50
+  },
+  seeMoreText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
