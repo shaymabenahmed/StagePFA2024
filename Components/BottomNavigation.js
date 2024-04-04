@@ -5,7 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../Screens/HomeScreen';
 import MessageScreen from '../Screens/MessageScreen';
-import ScrollVideo from './ScrollVideo';
+import RechercheScreen from '../Screens/RechercheScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const BottomNavigation = () => {
         
         ><Tab.Screen
         name="Home"
-        component={ScrollVideo}
+        component={HomeScreen}
         options={{
           tabBarLabel: ({ focused, color }) => (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -39,7 +40,7 @@ const BottomNavigation = () => {
 
           <Tab.Screen 
             name="Recherche" 
-            component={HomeScreen} 
+            component={RechercheScreen} 
             options={{ 
               tabBarLabel: ({ focused, color }) => (
                 <View style={{justifyContent:'center',alignItems:'center'}}>
